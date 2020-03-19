@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - preConditions:
+
+  - changeSet:
+      id: 2
+      author: P2889307
+      context: release
+      changes:
+        - createTable:
+            tableName: ITEM
+            columns:
+              - column:
+                  name: catlogNumber
+                  type: varchar2(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: ITEMNAME
+                  type: varchar2(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ITEMPRICE
+                  type: DECIMAL(10,2)
+                  constraints:
+                    nullable: false

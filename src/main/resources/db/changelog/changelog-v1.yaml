@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - preConditions:
+
+  - changeSet:
+      id: 1
+      author: P2889307
+      context: release
+      changes:
+        - createTable:
+            tableName: CUSTOMER
+            columns:
+              - column:
+                  name: ID
+                  type: number(19,0)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: FIRSTNAME
+                  type: varchar2(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: LASTNAME
+                  type: varchar2(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PHONENUMBER
+                  type: varchar2(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: STREET
+                  type: varchar2(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: CITY
+                  type: varchar2(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: STATE
+                  type: varchar2(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: BIRTHDAY
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: UNIQIDENTIFIER
+                  type: varchar2(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: SOCIALNumber
+                  type: varchar2(255)
+                  constraints:
+                    nullable: false

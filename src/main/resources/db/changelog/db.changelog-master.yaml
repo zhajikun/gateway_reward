@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - preConditions:
+
+  - include:
+      file: changelog-v1.yaml
+      relativeToChangelogFile: true
+
+  - include:
+      file: changelog-v2.yaml
+      relativeToChangelogFile: true
+#
+  - include:
+      file: changelog-v3.yaml
+      relativeToChangelogFile: true
+#
+  - include:
+      file: changelog-v4.yaml
+      relativeToChangelogFile: true
+#
+#  - include:
+#      file: changelog-v5.yaml
+#      relativeToChangelogFile: true
+#
+#  - include:
+#      file: changelog-v6.yaml
+#      relativeToChangelogFile: true
+#
+#  - include:
+#      file: changelog-v8.xml
+#      relativeToChangelogFile: true
+

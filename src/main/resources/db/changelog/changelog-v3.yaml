@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - preConditions:
+
+  - changeSet:
+      id: 3
+      author: P2889307
+      context: release
+      changes:
+        - createTable:
+            tableName: TRANSACTION
+            columns:
+              - column:
+                  name: TRANSACTIONID
+                  type: varchar2(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+
+              - column:
+                  name: TIMESTAMP
+                  type: timestamp(6)
+                  constraints:
+                    nullable: false
+
+
