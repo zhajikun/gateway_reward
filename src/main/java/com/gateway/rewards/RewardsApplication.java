@@ -1,22 +1,23 @@
 package com.gateway.rewards;
 
 
-import com.gateway.rewards.entity.*;
+import com.gateway.rewards.entity.Customer;
+import com.gateway.rewards.entity.Item;
+import com.gateway.rewards.entity.Transaction;
 import com.gateway.rewards.repository.CustomerRepository;
 import com.gateway.rewards.repository.ItemRepository;
 import com.gateway.rewards.repository.TransactionRepository;
 import com.gateway.rewards.utils.UUIDgenerator;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class RewardsApplication implements CommandLineRunner {
@@ -101,9 +102,14 @@ public class RewardsApplication implements CommandLineRunner {
 
     saved_1.addTransaction(transaction_2);
 
+    List<Item> items_3 = Arrays.asList(item_1, item_2, item_3, item_3, item_3, item_4, item_4,item_4, item_4, item_4);
+
+    Transaction transaction_3 = Transaction.builder().items(items_3)
+            .timestamp(LocalDateTime.now().minusMonths(4))
+            .transactionId(UUIDgenerator.generateRandomUUID()).build();
+
+    saved_1.addTransaction(transaction_3);
     customerRepository.save(saved_1);
-
-
 
   }
 }

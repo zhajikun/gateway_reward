@@ -1,30 +1,17 @@
 package com.gateway.rewards.entity;
 
+import com.gateway.rewards.utils.Util;
+import lombok.*;
+import org.springframework.util.CollectionUtils;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.util.CollectionUtils;
 
 @Getter
 @Setter
@@ -69,7 +56,8 @@ public class Customer implements Serializable {
   private String socialNumber;
 
 
-  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch=FetchType.LAZY,orphanRemoval = true)
+  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch=FetchType.EAGER,orphanRemoval = true)
+  @Setter(AccessLevel.NONE)
   private Set<Transaction> transactions;
 
   @Override
@@ -90,15 +78,41 @@ public class Customer implements Serializable {
     return uniqIdentifier.hashCode();
   }
 
-
   public void addTransaction(Transaction transaction) {
     if (null == this.transactions) {
       this.transactions = new HashSet<>();
     }
-
     transaction.setCustomer(this);
     this.transactions.add(transaction);
   }
 
+  public BigDecimal getTotalspentThreeMonth(LocalDate startDate, LocalDate endDate){
+
+    Set<Transaction> allTransactions = this.getTransactions();
+
+    BigDecimal totalSpent = BigDecimal.valueOf(0.00);
+
+    Set<Transaction> peridTransactions = new HashSet<>();
+    for (Transaction t : allTransactions) {
+      LocalDate tranactionDate = Util.getLocalDate(t.getTimestamp());
+      if(tranactionDate.isAfter(startDate.minusDays(1L)) && tranactionDate.isBefore(endDate.plusDays(1L))){
+        peridTransactions.add(t);
+      }
+    }
+    return getTotalSpent(peridTransactions);
+  }
+
+  private BigDecimal getTotalSpent(Set<Transaction> transactions){
+    BigDecimal totalSpent = new BigDecimal(BigInteger.ZERO);
+    if(CollectionUtils.isEmpty(transactions)) return totalSpent;
+    for (Transaction t : transactions) {
+      totalSpent =  totalSpent.add(Util.getTransactionTotal(t));
+    }
+    return totalSpent;
+  }
+
+  public BigDecimal getCustomerTotalSpent(){
+    return getTotalSpent(this.getTransactions());
+  }
 
 }

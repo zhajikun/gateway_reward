@@ -5,6 +5,8 @@ import com.gateway.rewards.entity.Transaction;
 import com.gateway.rewards.repository.CustomerRepository;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +17,16 @@ public class RewardService {
 
    public BigDecimal getReward(Customer customer){
 
-
-
-
      return BigDecimal.valueOf(0L);
    }
 
    public BigDecimal getTotalSpent(Customer customer){
 
-    /* List<Transaction> list = customer.getTransactions();
-     double total = 0.00;*/
+      Set<Transaction> transactions = customer.getTransactions();
+       BigDecimal totalPrice = BigDecimal.ZERO;
+       for (Transaction t: customer.getTransactions() ) {
 
+       }
 
      return BigDecimal.valueOf(0L);
    }

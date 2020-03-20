@@ -1,14 +1,12 @@
 package com.gateway.rewards.entity;
 
+import lombok.*;
+import org.apache.el.lang.ELArithmetic;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import javax.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 
 @Setter
@@ -26,14 +24,16 @@ public class Transaction {
   @Column
   private LocalDateTime timestamp;
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
       name = "TRANSACTION_ITEM",
       joinColumns = @JoinColumn(name = "TRANSACTION_ID", referencedColumnName="transactionId"),
       inverseJoinColumns = @JoinColumn(name = "ITEM_CATNUMBER", referencedColumnName="CATLOGNUMBER"))
   private List<Item> items;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+
+
+  @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
   @JoinColumn(name="customer_uniqueidentifier", referencedColumnName = "uniqIdentifier")
   private Customer customer;
 
@@ -56,4 +56,5 @@ public class Transaction {
     int result = transactionId.hashCode();
     return  31 * result + timestamp.hashCode();
   }
+
 }
