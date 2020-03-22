@@ -72,7 +72,7 @@ public class RewardsApplicationTests {
     Set<Transaction> transactions = customer.getTransactions();
 
     for(Transaction t : transactions){
-      System.out.println("Transction : " +t.getTransactionId() +", transaction date is " +t.getTimestamp() + ", total price is:" + Util.getTransactionTotal(t));
+      System.out.println("Transction : " +t.getTransactionId() +", transaction date is " +t.getTimestamp() + ", total price is:" + t.getTranactionTotal());
     }
 
   }

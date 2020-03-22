@@ -3,21 +3,21 @@ package com.gateway.rewards;
 
 import com.gateway.rewards.entity.Customer;
 import com.gateway.rewards.entity.Item;
+import com.gateway.rewards.entity.OrderDetail;
 import com.gateway.rewards.entity.Transaction;
 import com.gateway.rewards.repository.CustomerRepository;
 import com.gateway.rewards.repository.ItemRepository;
 import com.gateway.rewards.repository.TransactionRepository;
 import com.gateway.rewards.utils.UUIDgenerator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class RewardsApplication implements CommandLineRunner {
@@ -65,21 +65,21 @@ public class RewardsApplication implements CommandLineRunner {
     customerRepository.save(customer_3);
 
     //=====================================Item 1
-    String uuid = UUIDgenerator.generateRandomUUID();
+    String item1_uuid = UUIDgenerator.generateRandomUUID();
 
-    Item item_1 = Item.builder().catlogNumber(uuid).itemName("Item-1").itemPrice(
+    Item item_1 = Item.builder().catlogNumber(item1_uuid).itemName("Item-1").itemPrice(
         BigDecimal.valueOf(10.15)).build();
 
-    uuid = UUIDgenerator.generateRandomUUID();
-    Item item_2 = Item.builder().catlogNumber(uuid).itemName("Item-2").itemPrice(
+    item1_uuid = UUIDgenerator.generateRandomUUID();
+    Item item_2 = Item.builder().catlogNumber(item1_uuid).itemName("Item-2").itemPrice(
         BigDecimal.valueOf(20.27)).build();
 
-    uuid = UUIDgenerator.generateRandomUUID();
-    Item item_3 = Item.builder().catlogNumber(uuid).itemName("Item-3").itemPrice(
+    item1_uuid = UUIDgenerator.generateRandomUUID();
+    Item item_3 = Item.builder().catlogNumber(item1_uuid).itemName("Item-3").itemPrice(
         BigDecimal.valueOf(30.74)).build();
 
-    uuid = UUIDgenerator.generateRandomUUID();
-    Item item_4 = Item.builder().catlogNumber(uuid).itemName("Item-4").itemPrice(
+    item1_uuid = UUIDgenerator.generateRandomUUID();
+    Item item_4 = Item.builder().catlogNumber(item1_uuid).itemName("Item-4").itemPrice(
         BigDecimal.valueOf(40.89)).build();
 
     itemRepository.save(item_1);
@@ -87,29 +87,43 @@ public class RewardsApplication implements CommandLineRunner {
     itemRepository.save(item_3);
     itemRepository.save(item_4);
 
-    List<Item> items_1 = Arrays.asList(item_1, item_2, item_3, item_4);
+    OrderDetail orderDetail_1 = OrderDetail.builder().item(item_1).itemQuantity(3).build();
+    OrderDetail orderDetail_2 = OrderDetail.builder().item(item_2).itemQuantity(5).build();
+    OrderDetail orderDetail_3 = OrderDetail.builder().item(item_3).itemQuantity(7).build();
+    OrderDetail orderDetail_4 = OrderDetail.builder().item(item_4).itemQuantity(9).build();
 
-    Transaction transaction_1 = Transaction.builder().items(items_1).timestamp(LocalDateTime.now())
+    List<OrderDetail> orderDetails = Arrays
+        .asList(orderDetail_1, orderDetail_2, orderDetail_3, orderDetail_4);
+
+    Transaction transaction_1 = Transaction.builder().timestamp(LocalDateTime.now()).orderDetails(orderDetails)
         .transactionId(UUIDgenerator.generateRandomUUID()).build();
 
     saved_1.addTransaction(transaction_1);
     customerRepository.save(saved_1);
-    List<Item> items_2 = Arrays.asList(item_1, item_2, item_3);
 
-    Transaction transaction_2 = Transaction.builder().items(items_2)
+    orderDetail_1 = OrderDetail.builder().item(item_1).itemQuantity(1).build();
+    orderDetail_2 = OrderDetail.builder().item(item_2).itemQuantity(2).build();
+    orderDetail_3 = OrderDetail.builder().item(item_3).itemQuantity(3).build();
+
+    orderDetails = Arrays.asList(orderDetail_1, orderDetail_2, orderDetail_3);
+
+    Transaction transaction_2 = Transaction.builder().orderDetails(orderDetails)
         .timestamp(LocalDateTime.now().minusDays(5))
         .transactionId(UUIDgenerator.generateRandomUUID()).build();
 
     saved_1.addTransaction(transaction_2);
 
-    List<Item> items_3 = Arrays.asList(item_1, item_2, item_3, item_3, item_3, item_4, item_4,item_4, item_4, item_4);
+    orderDetail_2 = OrderDetail.builder().item(item_2).itemQuantity(2).build();
+    orderDetail_3 = OrderDetail.builder().item(item_3).itemQuantity(4).build();
+    orderDetail_4 = OrderDetail.builder().item(item_4).itemQuantity(6).build();
 
-    Transaction transaction_3 = Transaction.builder().items(items_3)
-            .timestamp(LocalDateTime.now().minusMonths(4))
-            .transactionId(UUIDgenerator.generateRandomUUID()).build();
+    orderDetails = Arrays.asList(orderDetail_2, orderDetail_3, orderDetail_4);
+
+    Transaction transaction_3 = Transaction.builder().orderDetails(orderDetails)
+        .timestamp(LocalDateTime.now().minusMonths(4))
+        .transactionId(UUIDgenerator.generateRandomUUID()).build();
 
     saved_1.addTransaction(transaction_3);
     customerRepository.save(saved_1);
-
   }
 }

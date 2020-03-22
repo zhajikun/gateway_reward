@@ -17,9 +17,9 @@ databaseChangeLog:
       file: changelog-v4.yaml
       relativeToChangelogFile: true
 #
-#  - include:
-#      file: changelog-v5.yaml
-#      relativeToChangelogFile: true
+  - include:
+      file: changelog-v5.yaml
+      relativeToChangelogFile: true
 #
 #  - include:
 #      file: changelog-v6.yaml

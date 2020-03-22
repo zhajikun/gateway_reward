@@ -2,15 +2,28 @@ databaseChangeLog:
   - preConditions:
 
   - changeSet:
-      id: 3
+      id: 4
       author: P2889307
       context: release
       changes:
-        - createSequence:
-            catalogName: TRANSACTION
-            cycle: false
-            incrementBy: 1
-            ordered: true
-            schemaName: public
-            sequenceName: hibernate_sequence
-            startValue: 0
+        - createTable:
+            tableName: ORDERDETAIL
+            columns:
+              - column:
+                  name: DETAILID
+                  type: varchar2(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: ITEMCATNUM
+                  type: varchar2(255)
+                  constraints:
+                    nullable: false
+              - column:
+                 name: ITEMQUANTITY
+                 type: number(19,0)
+                 constraints:
+                   nullable: false
+
+

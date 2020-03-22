@@ -56,6 +56,7 @@ public class Customer implements Serializable {
   private String socialNumber;
 
 
+
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch=FetchType.EAGER,orphanRemoval = true)
   @Setter(AccessLevel.NONE)
   private Set<Transaction> transactions;
@@ -106,7 +107,7 @@ public class Customer implements Serializable {
     BigDecimal totalSpent = new BigDecimal(BigInteger.ZERO);
     if(CollectionUtils.isEmpty(transactions)) return totalSpent;
     for (Transaction t : transactions) {
-      totalSpent =  totalSpent.add(Util.getTransactionTotal(t));
+      totalSpent =  totalSpent.add(t.getTranactionTotal());
     }
     return totalSpent;
   }
