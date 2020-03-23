@@ -12,7 +12,7 @@
 
 ## How to run
 
- 1. I use liuibase to create a h2 im memory database. After you download my code, you need to run the main class: 
+ 1. I use liquibase to create a h2 im memory database. After you download my code, you need to run the main class: 
  RewardsApplication.java first to load data to h2 db.
  
  2. With RewardsApplication.java is running, you can run the test cases at RewardsApplicationTests_Integreation.java.
