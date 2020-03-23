@@ -1,22 +1,9 @@
 package com.gateway.rewards.entity;
 
+import lombok.*;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Setter
 @Getter
@@ -28,7 +15,7 @@ import lombok.Setter;
 public class OrderDetail {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
 
   @OneToOne
@@ -61,5 +48,13 @@ public class OrderDetail {
   @Override
   public int hashCode() {
     return this.item.hashCode();
+  }
+  @Override
+  public String toString() {
+    return "\nOrderDetail{" +
+            "item=" + item +
+            ", itemQuantity=" + itemQuantity +
+            ", orde detail total=" + getOrderDetailTotal() +
+            '}'+"\n";
   }
 }

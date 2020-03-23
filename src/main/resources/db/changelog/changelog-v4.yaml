@@ -10,8 +10,8 @@ databaseChangeLog:
             tableName: ORDERDETAIL
             columns:
               - column:
-                  name: DETAILID
-                  type: varchar2(255)
+                  name: ID
+                  type: number(19,0)
                   constraints:
                     nullable: false
                     primaryKey: true
